@@ -62,16 +62,35 @@ class Syncifyer_Cart_Recovery_Install {
 
 		$sql = "CREATE TABLE {$table_name} (
 			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			session_key varchar(100) NOT NULL,
-			customer_email varchar(190) DEFAULT '' NOT NULL,
-			cart_data longtext NULL,
-			status varchar(20) DEFAULT 'open' NOT NULL,
-			created_at datetime NOT NULL,
-			updated_at datetime NOT NULL,
+			
+			cart_id VARCHAR(64) NOT NULL,
+			session_id VARCHAR(64) DEFAULT NULL,
+
+			email VARCHAR(190) DEFAULT NULL,
+			phone VARCHAR(20) DEFAULT NULL,
+			consent TINYINT(1) DEFAULT 0,
+
+			cart_data LONGTEXT NOT NULL,
+			cart_total DECIMAL(10,2) DEFAULT 0.00,
+			currency VARCHAR(10) DEFAULT 'INR',
+
+			status VARCHAR(20) DEFAULT 'active',
+
+			sync_status VARCHAR(20) DEFAULT 'pending',
+			retry_count INT DEFAULT 0,
+			last_attempt_at DATETIME DEFAULT NULL,
+			synced_at DATETIME DEFAULT NULL,
+
+			error_message TEXT DEFAULT NULL,
+
+			created_at DATETIME NOT NULL,
+			updated_at DATETIME NOT NULL,
+
 			PRIMARY KEY  (id),
-			KEY session_key (session_key),
-			KEY customer_email (customer_email),
-			KEY status (status)
+			UNIQUE KEY cart_id (cart_id),
+			KEY sync_status (sync_status),
+			KEY created_at (created_at),
+			KEY email (email)
 		) {$charset_collate};";
 
 		dbDelta( $sql );
