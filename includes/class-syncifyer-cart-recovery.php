@@ -85,6 +85,9 @@ if ( ! class_exists( 'Syncifyer_Cart_Recovery', false ) ) {
 		private function includes() {
 			require_once SCR_PLUGIN_PATH . 'includes/class-scr-api-client.php';
 			require_once SCR_PLUGIN_PATH . 'includes/class-scr-install.php';
+			require_once SCR_PLUGIN_PATH . 'includes/class-scr-consent.php';
+			require_once SCR_PLUGIN_PATH . 'includes/class-scr-cart-capture.php';
+			require_once SCR_PLUGIN_PATH . 'includes/class-scr-cron-sync.php';
 			require_once SCR_PLUGIN_PATH . 'includes/class-scr-plugin.php';
 		}
 

@@ -39,6 +39,7 @@ class Syncifyer_Cart_Recovery_Install {
 	 * @return void
 	 */
 	public static function deactivate() {
+		wp_clear_scheduled_hook( 'scr_sync_pending_carts' );
 		self::maybe_notify_api( 'deactivate' );
 
 		/**

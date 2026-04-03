@@ -20,10 +20,34 @@ class Syncifyer_Cart_Recovery_Plugin {
 	protected $api_client;
 
 	/**
+	 * Consent helper.
+	 *
+	 * @var Syncifyer_Cart_Recovery_Consent
+	 */
+	protected $consent_helper;
+
+	/**
+	 * Cart capture service.
+	 *
+	 * @var Syncifyer_Cart_Recovery_Cart_Capture
+	 */
+	protected $cart_capture;
+
+	/**
+	 * Cron sync service.
+	 *
+	 * @var Syncifyer_Cart_Recovery_Cron_Sync
+	 */
+	protected $cron_sync;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_client = new Syncifyer_Cart_Recovery_API_Client();
+		$this->api_client     = new Syncifyer_Cart_Recovery_API_Client();
+		$this->consent_helper = new Syncifyer_Cart_Recovery_Consent();
+		$this->cart_capture   = new Syncifyer_Cart_Recovery_Cart_Capture( $this->consent_helper );
+		$this->cron_sync      = new Syncifyer_Cart_Recovery_Cron_Sync();
 		$this->init_hooks();
 	}
 
